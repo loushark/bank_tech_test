@@ -32,18 +32,20 @@ date       || credit  || debit  || balance
 
 ### Modelling
 
-| class        |  instances             |  methods                             |
-|--------------|------------------------|--------------------------------------|
-| BankAccount  |  @name                 |  deposit(amount, date)               |
-|              |  @balance = 0          |  withdraw(amount, date)              |
-|              |                        |  print_statement                     |
-|--------------|------------------------|--------------------------------------|
-| Statement    |  @account_history = [] |  save_deposit_history(amount, date)  |
-|              |                        |  save_withdraw_history(amount, date) |
-|              |                        |  retrieve_history                    |
-|--------------|------------------------|--------------------------------------|
+| class        |  instances                   |  methods                             |
+|--------------|------------------------------|--------------------------------------|
+| BankAccount  |  @name                       |  deposit(amount, date)               |
+|              |  @balance = 0                |  withdraw(amount, date)              |
+|              |  @statement = Statement.new  |  save_deposit_to_statement(amount)   |
+|              |                              |  save_withdraw_to_statement(amount)  |
+|              |                              |  print_statement                     |
+|--------------|------------------------------|--------------------------------------|
+| Statement    |  @account_history = []       |  save_deposit_history(amount, date)  |
+|              |                              |  save_withdraw_history(amount, date) |
+|              |                              |  retrieve_history                    |
+|--------------|------------------------------|--------------------------------------|
 
-![class_interaction_model](class_interaction_model)  
+![class_interaction_model](class_interaction_model_V2.jpg)  
 
 
 Notes:
