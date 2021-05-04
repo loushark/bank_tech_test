@@ -55,17 +55,21 @@ Notes:
 ----
 
 ### irb
-require './lib/bankAccount'  
+require './lib/bank_account'   
 client1 = BankAccount.new("Client1")  
 client1  
 => #<BankAccount:0x00007fc5ec1e65b8 @name="Client1", @balance=0, @statement=#<Statement:0x00007fc5ec1e6568 @account_history=[]>>  
 client1.deposit(25)
- => 25
+ => "Deposit amount saved to statement"
  client1  
- => #<BankAccount:0x00007fc5ec1e65b8 @name="Client1", @balance=25, @statement=#<Statement:0x00007fc5ec1e6568 @account_history=[]>>   
+ => #<BankAccount:0x00007fe7a40f2b50 @name="Client1", @balance=25, @statement=#<Statement:0x00007fe7a40f2b00 @account_history=[{:Deposit=>25}]>>   
  client1.print_statement  
- => []   
+  => [{:Deposit=>25}]
+  client1.withdraw(10)
+ => "Withdrawal amount saved to statement"
+ client1.print_statement
+ => [{:Deposit=>25}, {:Withdraw=>10}]
 
  - notes:   
- - connect <adding a deposit> to <saving to history>
+ - format history to show both withdraw and deposit on each transaction
  -
