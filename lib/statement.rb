@@ -8,12 +8,12 @@ class Statement
     @account_history = []
   end
 
-  def save_deposit_history(amount)
-    @account_history << { Deposit: amount, Withdraw: nil }
+  def save_deposit_history(amount, date)
+    @account_history << { Date: date.strftime("%d-%m-%Y"), Deposit: amount, Withdraw: nil }
   end
 
-  def save_withdraw_history(amount)
-    @account_history << { Deposit: nil, Withdraw: amount }
+  def save_withdraw_history(amount, date)
+    @account_history << { Date: date.strftime("%d-%m-%Y"), Deposit: nil, Withdraw: amount }
   end
 
   def retrieve_history
