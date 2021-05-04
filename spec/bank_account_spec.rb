@@ -1,12 +1,18 @@
-require 'BankAccount'
+# frozen_string_literal: true
+
+require 'bank_account'
 
 describe BankAccount do
-  let(:test_account) { BankAccount.new("Client 1") }
-  let(:mock_statement) { double "Statement", account_history: [{ "Withdraw": 0, "Deposit": 25, "Balance": 25 }, { "Withdraw": 10, "Deposit": 0, "Balance": 15 }] }
+  let(:test_account) { BankAccount.new('Client 1') }
+  let(:mock_statement) do
+    double 'Statement',
+           account_history: [{ "Withdraw": 0, "Deposit": 25, "Balance": 25 },
+                             { "Withdraw": 10, "Deposit": 0, "Balance": 15 }]
+  end
 
   context 'when a new bankaccount is created' do
-    it "has a name and a balance" do
-      expect(test_account.name).to eq "Client 1"
+    it 'has a name and a balance' do
+      expect(test_account.name).to eq 'Client 1'
       expect(test_account.balance).to eq 0
     end
   end

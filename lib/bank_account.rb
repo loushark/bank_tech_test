@@ -1,5 +1,8 @@
+# frozen_string_literal: true
+
 require_relative 'statement'
 
+#:nodoc:
 class BankAccount
   attr_reader :name, :balance
 
