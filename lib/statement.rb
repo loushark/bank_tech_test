@@ -12,4 +12,8 @@ attr_reader :account_history
   def save_withdraw_history(amount)
     @account_history << { Withdraw: amount }
   end
+
+  def retrieve_history
+    @account_history
+  end
 end

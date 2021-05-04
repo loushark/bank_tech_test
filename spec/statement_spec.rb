@@ -28,4 +28,14 @@ describe Statement do
       end
     end
   end
+
+  describe '#retrieve_history' do
+    context 'when a statement is requested' do
+      it 'retrieves the account history' do
+        test_statement.save_deposit_history(deposit_1)
+        test_statement.save_withdraw_history(withdraw_1)
+        expect(test_statement.retrieve_history).to eq [ { Deposit: 10 }, { Withdraw: 5 }]
+      end
+    end
+  end
 end
