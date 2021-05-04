@@ -8,4 +8,8 @@ attr_reader :account_history
   def save_deposit_history(amount)
     @account_history << { Deposit: amount }
   end
+
+  def save_withdraw_history(amount)
+    @account_history << { Withdraw: amount }
+  end
 end
