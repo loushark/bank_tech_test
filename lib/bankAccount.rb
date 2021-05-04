@@ -4,6 +4,7 @@ class BankAccount
   def initialize(name)
     @name = name
     @balance = 0
+    @statement = Statement.new
   end
 
   def deposit(amount)
@@ -12,5 +13,9 @@ class BankAccount
 
   def withdraw(amount)
     @balance -= amount
+  end
+
+  def print_statement
+    @statement.account_history
   end
 end

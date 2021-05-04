@@ -2,6 +2,7 @@ require 'BankAccount'
 
 describe BankAccount do
   let(:test_account) { BankAccount.new("Client 1") }
+  let(:mock_statement) { double "Statement", account_history: [{ "Withdraw": 0, "Deposit": 25, "Balance": 25 }, { "Withdraw": 10, "Deposit": 0, "Balance": 15 }] }
 
   context 'when a new bankaccount is created' do
     it "has a name and a balance" do
@@ -25,6 +26,21 @@ describe BankAccount do
         test_account.deposit(10)
         test_account.withdraw(5)
         expect(test_account.balance).to eq 5
+      end
+    end
+  end
+
+  describe '#print_statement' do
+    context 'when a statement is requested' do
+      before do
+        # allow(test_account).to receive(:print_statement).and_return(mock_statement.account_history)
+        allow(Statement).to receive(:new).and_return(mock_statement)
+
+      end
+
+      it 'prints a statement containing the account history' do
+        p mock_statement.account_history
+        expect(test_account.print_statement).to eq mock_statement.account_history
       end
     end
   end
