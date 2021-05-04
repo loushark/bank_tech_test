@@ -17,7 +17,7 @@ describe Statement do
     context 'when a deposit is made' do
       it 'saves the deposit information to the account_history' do
         test_statement.save_deposit_history(deposit_one)
-        expect(test_statement.account_history).to eq [{ Deposit: 10 }]
+        expect(test_statement.account_history).to eq [{ Deposit: 10, Withdraw: nil }]
       end
     end
   end
@@ -26,7 +26,7 @@ describe Statement do
     context 'when a withdrawal is made' do
       it 'saves the withdrawal information to the account_history' do
         test_statement.save_withdraw_history(withdraw_one)
-        expect(test_statement.account_history).to eq [{ Withdraw: 5 }]
+        expect(test_statement.account_history).to eq [{ Deposit: nil, Withdraw: 5 }]
       end
     end
   end
@@ -36,7 +36,7 @@ describe Statement do
       it 'retrieves the account history' do
         test_statement.save_deposit_history(deposit_one)
         test_statement.save_withdraw_history(withdraw_one)
-        expect(test_statement.retrieve_history).to eq [{ Deposit: 10 }, { Withdraw: 5 }]
+        expect(test_statement.retrieve_history).to eq [{ Deposit: 10, Withdraw: nil }, { Deposit: nil, Withdraw: 5 }]
       end
     end
   end

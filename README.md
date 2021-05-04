@@ -62,14 +62,16 @@ client1
 client1.deposit(25)
  => "Deposit amount saved to statement"
  client1  
- => #<BankAccount:0x00007fe7a40f2b50 @name="Client1", @balance=25, @statement=#<Statement:0x00007fe7a40f2b00 @account_history=[{:Deposit=>25}]>>   
+  => #<BankAccount:0x00007f8dfe8ac198 @name="Client1", @balance=25, @statement=#<Statement:0x00007f8dfe8ac148 @account_history=[{:Deposit=>25, :Withdraw=>nil}]>>    
  client1.print_statement  
-  => [{:Deposit=>25}]
+ => [{:Deposit=>25, :Withdraw=>nil}]
   client1.withdraw(10)
  => "Withdrawal amount saved to statement"
  client1.print_statement
- => [{:Deposit=>25}, {:Withdraw=>10}]
+ => [{:Deposit=>25, :Withdraw=>nil}, {:Deposit=>nil, :Withdraw=>10}]
+ client1.balance
+ => 15
 
  - notes:   
- - format history to show both withdraw and deposit on each transaction
- -
+ - add dates to statement
+ - print statment as a formatted table
