@@ -18,4 +18,14 @@ describe BankAccount do
       end
     end
   end
+
+  describe '#withdraw' do
+    context 'when a withdrawal is made' do
+      it 'minuses the amount from the balance' do
+        test_account.deposit(10)
+        test_account.withdraw(5)
+        expect(test_account.balance).to eq 5
+      end
+    end
+  end
 end
