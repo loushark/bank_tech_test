@@ -14,11 +14,25 @@ class BankAccount
 
   def deposit(amount)
     @balance += amount
+    save_deposit_to_statement(amount)
   end
 
   def withdraw(amount)
     @balance -= amount
+    save_withdraw_to_statement(amount)
   end
+
+  def save_deposit_to_statement(amount)
+    @statement.save_deposit_history(amount)
+    "Deposit amount saved to statement"
+  end
+
+  def save_withdraw_to_statement(amount)
+    @statement.save_withdraw_history(amount)
+    "Withdrawal amount saved to statement"
+  end
+
+
 
   def print_statement
     @statement.account_history
