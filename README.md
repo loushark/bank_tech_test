@@ -49,3 +49,19 @@ Notes:
 - name instance is added to BankAccount as a nice to have, so that new accounts can be created and separately identified
 
 ----
+
+### irb
+require './lib/bankAccount'  
+client1 = BankAccount.new("Client1")  
+client1  
+=> #<BankAccount:0x00007fc5ec1e65b8 @name="Client1", @balance=0, @statement=#<Statement:0x00007fc5ec1e6568 @account_history=[]>>  
+client1.deposit(25)
+ => 25
+ client1  
+ => #<BankAccount:0x00007fc5ec1e65b8 @name="Client1", @balance=25, @statement=#<Statement:0x00007fc5ec1e6568 @account_history=[]>>   
+ client1.print_statement  
+ => []   
+
+ - notes:   
+ - connect <adding a deposit> to <saving to history>
+ -
