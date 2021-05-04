@@ -33,13 +33,10 @@ describe BankAccount do
   describe '#print_statement' do
     context 'when a statement is requested' do
       before do
-        # allow(test_account).to receive(:print_statement).and_return(mock_statement.account_history)
         allow(Statement).to receive(:new).and_return(mock_statement)
-
       end
 
       it 'prints a statement containing the account history' do
-        p mock_statement.account_history
         expect(test_account.print_statement).to eq mock_statement.account_history
       end
     end
