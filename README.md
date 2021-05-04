@@ -55,23 +55,30 @@ Notes:
 ----
 
 ### irb
-require './lib/bank_account'   
-client1 = BankAccount.new("Client1")  
-client1  
+- require './lib/bank_account'   
+
+- client1 = BankAccount.new("Client1")  
+
+- client1  
 => #<BankAccount:0x00007fc5ec1e65b8 @name="Client1", @balance=0, @statement=#<Statement:0x00007fc5ec1e6568 @account_history=[]>>  
-client1.deposit(25)
- => "Deposit amount saved to statement"
- client1  
-  => #<BankAccount:0x00007f8dfe8ac198 @name="Client1", @balance=25, @statement=#<Statement:0x00007f8dfe8ac148 @account_history=[{:Deposit=>25, :Withdraw=>nil}]>>    
- client1.print_statement  
- => [{:Deposit=>25, :Withdraw=>nil}]
-  client1.withdraw(10)
- => "Withdrawal amount saved to statement"
- client1.print_statement
- => [{:Deposit=>25, :Withdraw=>nil}, {:Deposit=>nil, :Withdraw=>10}]
- client1.balance
- => 15
+
+- client1.deposit(25)   
+ => "Deposit amount saved to statement"   
+
+- client1  
+   => #<BankAccount:0x00007fc1eb817298 @name="Client1", @balance=25, @statement=#<Statement:0x00007fc1eb816eb0 @account_history=[{:Date=>"04-05-2021", :Deposit=>25, :Withdraw=>nil}]>>    
+
+- client1.print_statement  
+  => [{:Date=>"04-05-2021", :Deposit=>25, :Withdraw=>nil}]
+
+- client1.withdraw(10)   
+ => "Withdrawal amount saved to statement"   
+
+- client1.print_statement   
+  => [{:Date=>"04-05-2021", :Deposit=>25, :Withdraw=>nil}, {:Date=>"04-05-2021", :Deposit=>nil, :Withdraw=>10}]    
+
+- client1.balance   
+ => 15   
 
  - notes:   
- - add dates to statement
- - print statment as a formatted table
+ - print statement as a formatted table

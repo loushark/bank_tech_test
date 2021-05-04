@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require_relative 'statement'
+require 'date'
 
 #:nodoc:
 class BankAccount
