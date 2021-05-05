@@ -69,13 +69,18 @@ Notes:
   => #<BankAccount:0x00007f90f5318570 @name="Client1", @balance=25, @statement=#<Statement:0x00007f90f5318520 @account_history=[{:Date=>"05-05-2021", :Deposit=>25, :Withdraw=>nil, :Balance=>25}]>>    
 
 - client1.print_statement  
- => [{:Date=>"05-05-2021", :Deposit=>25, :Withdraw=>nil, :Balance=>25}]
+Date       || Deposit  || Withdraw || Balance
+05-05-2021 || 25       ||          || 25      
+ => "End of statement"
 
 - client1.withdraw(10)   
  => "Withdrawal amount saved to statement"   
 
 - client1.print_statement   
- => [{:Date=>"05-05-2021", :Deposit=>25, :Withdraw=>nil, :Balance=>25}, {:Date=>"05-05-2021", :Deposit=>nil, :Withdraw=>10, :Balance=>15}]     
+Date       || Deposit  || Withdraw || Balance
+05-05-2021 ||          || 10       || 15      
+05-05-2021 || 25       ||          || 25      
+ => "End of statement"    
 
 - client1.balance   
  => 15   
