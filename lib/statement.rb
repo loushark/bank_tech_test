@@ -5,9 +5,6 @@ class Statement
   attr_reader :account_history
 
   def initialize
-    # @account_history = [{ Date: '10-01-2012', Deposit: 1000, Withdraw: " ", Balance: 1000 },
-    #        { Date: '13-01-2012', Deposit: 2000, Withdraw: " ", Balance: 3000 },
-    #        { Date: '14-01-2012', Deposit: " ", Withdraw: 500, Balance: 2500 }]
     @account_history = []
   end
 
@@ -17,11 +14,6 @@ class Statement
 
   def save_withdraw_history(amount, date, balance)
     @account_history << { Date: date.strftime('%d-%m-%Y'), Deposit: " ", Withdraw: amount, Balance: balance }
-  end
-
-  def retrieve_history
-    format_statement
-    "End of statement"
   end
 
   def write_statement_lines(columns)
