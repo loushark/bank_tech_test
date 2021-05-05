@@ -9,11 +9,11 @@ class Statement
   end
 
   def save_deposit_history(amount, date, balance)
-    @account_history << { Date: date.strftime('%d-%m-%Y'), Deposit: amount, Withdraw: " ", Balance: balance }
+    @account_history << { Date: date.strftime('%d-%m-%Y'), Deposit: (sprintf '%.2f', amount), Withdraw: " ", Balance: (sprintf '%.2f', balance) }
   end
 
   def save_withdraw_history(amount, date, balance)
-    @account_history << { Date: date.strftime('%d-%m-%Y'), Deposit: " ", Withdraw: amount, Balance: balance }
+    @account_history << { Date: date.strftime('%d-%m-%Y'), Deposit: " ", Withdraw: (sprintf '%.2f', amount), Balance: (sprintf '%.2f', balance) }
   end
 
   def write_statement_lines(columns)
