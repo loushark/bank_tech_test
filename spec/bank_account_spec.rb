@@ -39,7 +39,7 @@ describe BankAccount do
   describe '#save_deposit_to_statement' do
     context 'when a deposit is made' do
       it 'saves it to the history' do
-        expect(test_account.deposit(10)).to eq "Deposit amount saved to statement"
+        expect(test_account.deposit(10)).to eq 'Deposit amount saved to statement'
       end
     end
   end
@@ -47,7 +47,7 @@ describe BankAccount do
   describe '#save_deposit_to_statement' do
     context 'when a withdrawal is made' do
       it 'saves it to the history' do
-        expect(test_account.withdraw(5)).to eq "Withdrawal amount saved to statement"
+        expect(test_account.withdraw(5)).to eq 'Withdrawal amount saved to statement'
       end
     end
   end

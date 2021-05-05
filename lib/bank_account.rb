@@ -24,16 +24,14 @@ class BankAccount
   end
 
   def save_deposit_to_statement(amount)
-    @statement.save_deposit_history(amount, Date.today)
-    "Deposit amount saved to statement"
+    @statement.save_deposit_history(amount, Date.today, @balance)
+    'Deposit amount saved to statement'
   end
 
   def save_withdraw_to_statement(amount)
-    @statement.save_withdraw_history(amount, Date.today)
-    "Withdrawal amount saved to statement"
+    @statement.save_withdraw_history(amount, Date.today, @balance)
+    'Withdrawal amount saved to statement'
   end
-
-
 
   def print_statement
     @statement.account_history
