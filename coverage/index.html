@@ -14,7 +14,7 @@
       <img src="./assets/0.12.3/loading.gif" alt="loading"/>
     </div>
     <div id="wrapper" class="hide">
-      <div class="timestamp">Generated <abbr class="timeago" title="2021-05-05T09:26:51+01:00">2021-05-05T09:26:51+01:00</abbr></div>
+      <div class="timestamp">Generated <abbr class="timeago" title="2021-05-05T10:04:22+01:00">2021-05-05T10:04:22+01:00</abbr></div>
       <ul class="group_tabs"></ul>
 
       <div id="content">
@@ -1896,7 +1896,7 @@
 
             
 
-            <code class="ruby">        expect(test_statement.account_history).to eq [{ Date: &#39;10-01-2012&#39;, Deposit: 10, Withdraw: nil, Balance: 12 }]</code>
+            <code class="ruby">        expect(test_statement.account_history[0][:Deposit]).to eq 10</code>
           </li>
         </div>
       
@@ -1995,7 +1995,7 @@
 
             
 
-            <code class="ruby">        expect(test_statement.account_history).to eq [{ Date: &#39;10-01-2012&#39;, Deposit: nil, Withdraw: 5, Balance: 12 }]</code>
+            <code class="ruby">        expect(test_statement.account_history[0][:Withdraw]).to eq 5</code>
           </li>
         </div>
       
@@ -2116,7 +2116,7 @@
 
             
 
-            <code class="ruby">        expect(test_statement.retrieve_history).to eq [{ Date: &#39;10-01-2012&#39;, Deposit: 10, Withdraw: nil, Balance: 12 },                                          { Date: &#39;10-01-2012&#39;, Deposit: nil, Withdraw: 5, Balance: 12 }]</code>
+            <code class="ruby">        expect(test_statement.retrieve_history).to eq [{ Date: &#39;10-01-2012&#39;, Deposit: 10, Withdraw: nil, Balance: 12 }, { Date: &#39;10-01-2012&#39;, Deposit: nil, Withdraw: 5, Balance: 12 }]</code>
           </li>
         </div>
       
@@ -2149,7 +2149,7 @@
 
             
 
-            <code class="ruby">      it &#39;includes a balance for each line on the statment&#39; do</code>
+            <code class="ruby">      it &#39;includes a balance for each line on the statement&#39; do</code>
           </li>
         </div>
       
