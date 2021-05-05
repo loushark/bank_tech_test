@@ -55,7 +55,15 @@ Notes:
 
 ----
 
-### irb
+```
+### to install and run tests
+* clone code to local machine  
+* run bundle install to install dependancies  
+* run tests with the 'rspec' command  
+* run linter with the 'rubocop' command  
+```
+
+### feature testing with irb
 - require './lib/bank_account'   
 
 - client1 = BankAccount.new("Client1")  
