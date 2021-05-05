@@ -19,40 +19,25 @@ class Statement
     @account_history << { Date: date.strftime('%d-%m-%Y'), Deposit: " ", Withdraw: amount, Balance: balance }
   end
 
-  # def write_line(h)
-  #   info = h.keys.map { |k| h[k].to_s.ljust(@columns[k][:width]) }.join(" || ")
-  #   puts "#{info}"
-  # end
-  #
-  #
-  # def retrieve_history
-  #   col_labels = { Date: "Date", Deposit: "Deposit", Withdraw: "Withdraw", Balance: "Balance" }
-  #
-  #   @columns = col_labels.each_with_object({}) { |(col,label),h|
-  #     h[col] = { label: label,
-  #                 width: [@account_history.map { |g| g[col].size }.max, label.size].max } }
-  #    puts "#{ @columns.map { |_,g| g[:label].ljust(g[:width]) }.join(' || ') }"
-  #
-  #   @account_history.reverse.each { |h| write_line(h) }
-  #
-  #   end
   def retrieve_history
     format_statement
     "End of statement"
   end
 
-    def format_statement
-      col_labels = { Date: "Date", Deposit: "Deposit", Withdraw: "Withdraw", Balance: "Balance" }
-
-      @columns = col_labels.each_with_object({}) { |(col,label),h|
-        h[col] = { label: label,
-                    width: [@account_history.map { |g| g[col].size }.max, label.size].max } }
-       puts "#{ @columns.map { |_,g| g[:label].ljust(g[:width]) }.join(' || ') }"
-
-      @account_history.reverse.each do |h|
-        info = h.keys.map { |k| h[k].to_s.ljust(@columns[k][:width]) }.join(" || ")
-        puts "#{info}"
+  def write_statement_lines(columns)
+    @account_history.reverse.each do |h|
+      info = h.keys.map { |k| h[k].to_s.ljust(columns[k][:width]) }.join(" || ")
+      puts "#{info}"
     end
+  end
 
+  def format_statement
+    col_labels = { Date: "Date", Deposit: "Deposit", Withdraw: "Withdraw", Balance: "Balance" }
+
+    @columns = col_labels.each_with_object({}) { |(col,label),h|
+      h[col] = { label: label,
+                  width: [@account_history.map { |g| g[col].size }.max, label.size].max } }
+     puts "#{ @columns.map { |_,g| g[:label].ljust(g[:width]) }.join(' || ') }"
+    write_statement_lines(@columns)
   end
 end
