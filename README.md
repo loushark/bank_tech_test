@@ -1,5 +1,6 @@
 BANK TECH TEST
 ==============
+![Ruby Style Guide](https://img.shields.io/badge/code_style-rubocop-brightgreen.svg)
 
 ````
 ### Requirements
@@ -7,7 +8,6 @@ BANK TECH TEST
 - Code is written in Ruby  
 - Code is interactive with a REPL, in this case IRB
 - Code is uses the linter, Rubocop
-[![Ruby Style Guide](https://img.shields.io/badge/code_style-rubocop-brightgreen.svg)](https://github.com/rubocop/rubocop)
 
 #### program features:
 - Deposits/withdrawal  
