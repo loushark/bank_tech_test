@@ -42,7 +42,8 @@ date       || credit  || debit  || balance
 |--------------|------------------------------|--------------------------------------|
 | Statement    |  @account_history = []       |  save_deposit_history(amount, date)  |
 |              |                              |  save_withdraw_history(amount, date) |
-|              |                              |  retrieve_history                    |
+|              |                              |  format_statement                    |
+|              |                              |    -> write_statement_lines          |
 |--------------|------------------------------|--------------------------------------|
 
 ![class_interaction_model](class_interaction_model_V2.jpg)  
