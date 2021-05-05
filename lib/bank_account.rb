@@ -34,6 +34,6 @@ class BankAccount
   end
 
   def print_statement
-    @statement.account_history
+    @statement.retrieve_history
   end
 end

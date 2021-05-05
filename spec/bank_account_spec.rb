@@ -59,6 +59,7 @@ describe BankAccount do
       end
 
       it 'prints a statement containing the account history' do
+        allow(test_account).to receive(:print_statement).and_return(mock_statement.account_history)
         expect(test_account.print_statement).to eq mock_statement.account_history
       end
     end

@@ -49,6 +49,14 @@ describe Statement do
         expect(test_statement.account_history[0][:Balance]).to eq 12
         expect(test_statement.retrieve_history[1][:Balance]).to eq 23
       end
+
+      it 'prints a formatted statment in table form' do
+        test_statement.save_deposit_history(1000, Date.new(2012, 01, 10), 1000)
+        test_statement.save_deposit_history(2000, Date.new(2012, 01, 13), 3000)
+        test_statement.save_withdraw_history(500, Date.new(2012, 01, 14), 2500)
+        expect { test_statement.retrieve_history }.to output(
+       "Date       || Deposit  || Withdraw || Balance \n14-01-2012 ||          || 500      || 2500    \n13-01-2012 || 2000     ||          || 3000    \n10-01-2012 || 1000     ||          || 1000    \n").to_stdout
+      end
     end
   end
 end
