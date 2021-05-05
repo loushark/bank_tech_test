@@ -65,7 +65,7 @@ describe BankAccount do
 
       it 'confirms the statement printing was successul' do
         allow(mock_statement).to receive(:format_statement)
-        expect(test_account.print_statement).to eq "Successfully printed statement"
+        expect(test_account.print_statement).to eq 'Successfully printed statement'
       end
     end
   end

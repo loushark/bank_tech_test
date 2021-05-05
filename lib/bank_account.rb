@@ -35,6 +35,6 @@ class BankAccount
 
   def print_statement
     @statement.format_statement
-    "Successfully printed statement"
+    'Successfully printed statement'
   end
 end
