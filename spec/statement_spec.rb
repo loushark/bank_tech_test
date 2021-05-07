@@ -10,9 +10,6 @@ describe Statement do
   let(:test_deposit1) { 1000.00 }
   let(:test_deposit2) { 2000.00 }
   let(:test_withdraw1) { 500.00 }
-  let(:test_balance1) { 1000.00 }
-  let(:test_balance2) { 3000.00 }
-  let(:test_balance3) { 2500.00 }
 
   describe '#format_statement' do
     context 'when a deposit is made' do
