@@ -2,37 +2,31 @@
 
 #:nodoc:
 class Statement
-  attr_reader :account_history
+  # attr_reader :account_history
 
   def initialize
     @account_history = []
   end
 
   def save_deposit_history(amount, date, balance)
-    @account_history << { Date: date.strftime('%d-%m-%Y'), Deposit: (format '%.2f', amount), Withdraw: ' ',
+    @account_history << { Date: date.strftime('%d-%m-%Y'), Deposit: (format '%.2f', amount), Withdraw: nil,
                           Balance: (format '%.2f', balance) }
   end
 
   def save_withdraw_history(amount, date, balance)
-    @account_history << { Date: date.strftime('%d-%m-%Y'), Deposit: ' ', Withdraw: (format '%.2f', amount),
+    @account_history << { Date: date.strftime('%d-%m-%Y'), Deposit: nil, Withdraw: (format '%.2f', amount),
                           Balance: (format '%.2f', balance) }
   end
 
-  def write_statement_lines(columns)
-    @account_history.reverse.each do |h|
-      info = h.keys.map { |k| h[k].to_s.ljust(columns[k][:width]) }.join(' || ')
-      puts info.to_s
-    end
+  def statement_header
+    puts "date || credit  || debit  || balance"
   end
 
   def format_statement
-    col_labels = { Date: 'Date', Deposit: 'Deposit', Withdraw: 'Withdraw', Balance: 'Balance' }
+    statement_header
 
-    @columns = col_labels.each_with_object({}) do |(col, label), h|
-      h[col] = { label: label,
-                 width: [@account_history.map { |g| g[col].size }.max, label.size].max }
+    @account_history.reverse.each do |line|
+      puts " #{line[:Date]} || #{line[:Deposit]} || #{line[:Withdraw]} || #{line[:Balance]}"
     end
-    puts @columns.map { |_, g| g[:label].ljust(g[:width]) }.join(' || ').to_s
-    write_statement_lines(@columns)
   end
 end

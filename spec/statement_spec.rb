@@ -4,77 +4,50 @@ require 'statement'
 
 describe Statement do
   let(:test_statement) { Statement.new }
-  let(:deposit_one) { 10.00 }
-  let(:withdraw_one) { 5.00 }
-  let(:test_date) { Date.new(2012, 01, 10) }
-  let(:test_balance) { 12.00 }
-  let(:test_balance2) { 23.00 }
-  let(:test_columns) do
-    { Date: { label: 'Date', width: 10 }, Deposit: { label: 'Deposit', width: 8 },
-      Withdraw: { label: 'Withdraw', width: 8 }, Balance: { label: 'Balance', width: 8 } }
-  end
-
-  context 'when a new statement is created' do
-    it 'has a history' do
-      expect(test_statement.account_history).to eq []
-    end
-  end
-
-  describe '#save_deposit_history' do
-    context 'when a deposit is made' do
-      it 'saves the deposit information to the account_history' do
-        test_statement.save_deposit_history(deposit_one, test_date, test_balance)
-        expect(test_statement.account_history[0][:Deposit]).to eq '10.00'
-      end
-    end
-  end
-
-  describe '#save_withdraw_history' do
-    context 'when a withdrawal is made' do
-      it 'saves the withdrawal information to the account_history' do
-        test_statement.save_withdraw_history(withdraw_one, test_date, test_balance)
-        expect(test_statement.account_history[0][:Withdraw]).to eq '5.00'
-      end
-    end
-  end
-
-  describe '#account_history' do
-    it 'includes a balance for each line on the statement' do
-      test_statement.save_deposit_history(deposit_one, test_date, test_balance)
-      test_statement.save_withdraw_history(withdraw_one, test_date, test_balance2)
-      expect(test_statement.account_history[0][:Balance]).to eq '12.00'
-      expect(test_statement.account_history[1][:Balance]).to eq '23.00'
-    end
-  end
+  let(:test_date1) { Date.new(2012, 01, 10) }
+  let(:test_date2) { Date.new(2012, 01, 13) }
+  let(:test_date3) { Date.new(2012, 01, 14) }
+  let(:test_deposit1) { 1000.00 }
+  let(:test_deposit2) { 2000.00 }
+  let(:test_withdraw1) { 500.00 }
+  let(:test_balance1) { 1000.00 }
+  let(:test_balance2) { 3000.00 }
+  let(:test_balance3) { 2500.00 }
 
   describe '#format_statement' do
-    context 'when a statement is requested' do
-      it 'columns for a table are formatted' do
-        test_statement.save_deposit_history(1000.00, Date.new(2012, 01, 10), 1000.00)
+    context 'when a deposit is made' do
+      it 'the statement has values for a date, credit and balance' do
+        test_statement.save_deposit_history(test_deposit1, test_date1, test_balance1)
         expect { test_statement.format_statement }.to output(
-          "Date       || Deposit || Withdraw || Balance\n10-01-2012 || 1000.00 ||          || 1000.00\n"
-        ).to_stdout
-      end
-
-      it 'prints a formatted statement in table form' do
-        test_statement.save_deposit_history(1000.00, Date.new(2012, 01, 10), 1000.00)
-        test_statement.save_deposit_history(2000.00, Date.new(2012, 01, 13), 3000.00)
-        test_statement.save_withdraw_history(500.00, Date.new(2012, 01, 14), 2500.00)
-        expect { test_statement.format_statement }.to output(
-          "Date       || Deposit || Withdraw || Balance\n14-01-2012 ||         || 500.00   || 2500.00\n13-01-2012 || 2000.00 ||          || 3000.00\n10-01-2012 || 1000.00 ||          || 1000.00\n"
-        ).to_stdout
+        "date || credit  || debit  || balance\n"  \
+        " 10-01-2012 || 1000.00 ||  || 1000.00\n").to_stdout
       end
     end
-  end
 
-  describe '#write_statement_lines' do
-    context 'when the account history is retrieved' do
-      it 'formats the account history into a readable table format' do
-        test_statement.save_deposit_history(1000.00, Date.new(2012, 01, 10), 1000.00)
-        test_statement.save_deposit_history(2000.00, Date.new(2012, 01, 13), 3000.00)
-        test_statement.save_withdraw_history(500.00, Date.new(2012, 01, 14), 2500.00)
-        expect { test_statement.write_statement_lines(test_columns) }.to output(
-          "14-01-2012 ||          || 500.00   || 2500.00 \n13-01-2012 || 2000.00  ||          || 3000.00 \n10-01-2012 || 1000.00  ||          || 1000.00 \n"
+    context 'when a withdrawal is made' do
+      it 'the statement has values for a date, debit and balance' do
+        test_statement.save_withdraw_history(test_withdraw1, test_date2, test_balance3)
+        expect { test_statement.format_statement }.to output(
+        "date || credit  || debit  || balance\n"  \
+        " 13-01-2012 ||  || 500.00 || 2500.00\n").to_stdout
+      end
+    end
+
+    context 'when a statement is requested' do
+      it 'column headings for the statment are formatted' do
+        expect { test_statement.statement_header }.to output(
+        "date || credit  || debit  || balance\n").to_stdout
+      end
+
+      it 'prints a fully formatted statement in table form' do
+        test_statement.save_deposit_history(test_deposit1, test_date1, test_balance1)
+        test_statement.save_deposit_history(test_deposit2, test_date2, test_balance2)
+        test_statement.save_withdraw_history(test_withdraw1, test_date3, test_balance3)
+        expect { test_statement.format_statement }.to output(
+        "date || credit  || debit  || balance\n" \
+        " 14-01-2012 ||  || 500.00 || 2500.00\n" \
+        " 13-01-2012 || 2000.00 ||  || 3000.00\n" \
+        " 10-01-2012 || 1000.00 ||  || 1000.00\n"
         ).to_stdout
       end
     end
