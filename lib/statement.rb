@@ -10,12 +10,12 @@ class Statement
   end
 
   def save_deposit_history(amount, date)
-    @balance += amount
+    update_balance(amount)
     @account_history << { Date: date.strftime('%d-%m-%Y'), Deposit: (format '%.2f', amount), Withdraw: nil, Balance: (format '%.2f', @balance) }
   end
 
   def save_withdraw_history(amount, date)
-    @balance -= amount
+    update_balance(amount * -1)
     @account_history << { Date: date.strftime('%d-%m-%Y'), Deposit: nil, Withdraw: (format '%.2f', amount),Balance: (format '%.2f', @balance) }
   end
 
@@ -28,5 +28,11 @@ class Statement
     @account_history.reverse.each do |line|
       puts " #{line[:Date]} || #{line[:Deposit]} || #{line[:Withdraw]} || #{line[:Balance]}"
     end
+  end
+
+  private
+
+  def update_balance(amount)
+    @balance += amount
   end
 end
