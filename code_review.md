@@ -20,3 +20,60 @@ This was a good attempt at the challenge. You’ve done some object-oriented des
 #### Acceptance criteria
 - You perhaps made the task a bit harder than it needed to be by trying to nicely format the table. The alignment of the columns/rows should be exactly as shown in the acceptance criteria (even if it looks worse than yours!)  
 Once you’ve revisited these points please resubmit this tech test. And let me know if you have any questions about any of the above :)  
+
+
+---- 
+Follow up feedback from Alice Lieutier
+
+Hey!
+3:21
+Here's my review for your bank tech test. Let me know if there's anything that is unclear.
+3:21
+Feature test
+It’s good that you added a feature test, and the scenario is good. However, right now your feature test is testing the return of your print_statement function, whereas you probably should be testing the output of it, like you do in the Statement tests. You may have to use a gem like Timecop to simulate the passage of time.
+bank_account_spec.rb
+For the deposit and withdrawal, you are not really testing the behaviour of these methods. What I mean here, is that you test their return, but they could return a confirmation without doing their job. This is why a mock is useful when unit testing method that act on instances of other classes.
+Think about what the deposit method is meant to do from a point of view of outside the class (that means returns + calls made to other objects)
+When you call it with a number it should:
+* Call save_deposit_history with the correct amount and date on the statement
+* Return ‘Deposit amount saved to statement’
+Both of these should be tested. You can test the first one using an expectation on the mock, including arguments. See more here: [Matching arguments - Setting constraints - RSpec Mocks - RSpec - Relish](https://relishapp.com/rspec/rspec-mocks/v/3-2/docs/setting-constraints/matching-arguments)
+Same for withdrawal.
+In doing this, you’l probably have to use a gem like timecop to freeze time, as well as test in a few different scenarios.
+Acceptance Criteria
+Your code still does not exactly match the acceptance criteria, and some companies can be very attached to their acceptance criteria, even going to have automated tests for your code (although they'll usually say it explicitly) so deviating (even on details) is often not recommended.
+This is the spec:
+date || credit || debit || balance
+06/05/2021 || || 500.00 || 2500.00
+06/05/2021 || 2000.00 || || 3000.00
+06/05/2021 || 1000.00 || || 1000.00
+And this is what your code would do:
+date || credit  || debit  || balance
+06-05-2021 ||  || 500.00 || 2500.00
+06-05-2021 || 2000.00 ||  || 3000.00
+06-05-2021 || 1000.00 ||  || 1000.00
+Notice the date format and the spacing. The simplest for this type of test is actually to just copy paste the acceptance criteria directly in your tests, probably starting with a feature test.
+statement.rb
+Great to see the storage of the history separate from formatting. This is way more robust, as you can easily change the formatting after the fact. However, you are still storing state as strings. Why not go a step further and just store then as date objects, so they can be formatted at print time like the numbers. This way, you could easily have your app evolve to print statement with different formats at the same time.
+In the format statement, you can probably extract some logic to make it easier to read. For example, you could extract a formatting_amount(amount) method whose job it it to return and empty string if the amount is nil, and a number formatted to two decimal otherwise.
+* You could go further with the redesign of this class by not storing the balance twice. Duplication of information is never desirable. Instead of having @balance, it could be a method that finds the last balance. Something like:
+def save_deposit_history(amount, date)
+    balance = last_balance + amount
+    @account_history << { Date: date.strftime('%d-%m-%Y'), Deposit: amount, Withdraw: nil, Balance: balance }
+end
+
+private
+
+def last_balance
+    @account_history.last[:Balance]
+end
+To push even further, you could just never store the balance (not even in the history), and just calculate it on the fly when you print the statement. If you go that way, you can simplify the history further by just having each “transaction” as just a date and amount. Then, at print time, if the amount is positive you put it in credit column, else in debit column.
+bank_account.rb
+Your deposit and withdraw method are just calling private methods. I’m not sure why that is - why not just write the code inside the public methods? Extracting code is useful if:
+* the code is used in a number of places (DRY)
+* you have a long a complex piece of code, and you want to cut it into several parts that are easier to understand.
+Here, I don’t see a good reason for it. It just creates more code. (edited) 
+relishapp.comrelishapp.com
+Matching arguments - Setting constraints - RSpec Mocks - RSpec - Relish
+Relish helps your team get the most from Behaviour Driven Development. Publish, browse, search, and organize your Cucumber features on the web.
+
